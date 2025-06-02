@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --brand-blue: #2D68FF;
+    --brand-red: #FF4D4D;
+    --brand-green: #28A745;
+    --brand-navy: #0D1F40;
+    --text-primary: #0D1F40;
+    --text-secondary: #333333;
+    --text-muted: #666666;
+    --text-disabled: #999999;
+    --bg-light: #F8F9FA;
+  }
+
+  body {
+    @apply bg-bg-light text-text-primary antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold text-text-primary;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 font-medium transition-colors;
+  }
+
+  .btn-primary {
+    @apply bg-brand-blue text-white hover:bg-brand-blue/90;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-brand-navy border border-brand-navy hover:bg-gray-50;
+  }
+
+  .btn-outline {
+    @apply border border-brand-blue text-brand-blue hover:bg-brand-blue/10;
+  }
+} 
