@@ -1,58 +1,43 @@
+'use client';
+
 import { FC } from 'react';
-import { ArrowUpIcon, ArrowDownIcon } from '@heroicons/react/24/solid';
 import { DeviationType } from '@/types/dashboard';
-import Card from '../shared/Card';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
 
 interface DeviationCardProps {
   deviation: DeviationType;
-  onClick?: () => void;
+  onClick: () => void;
 }
 
 const DeviationCard: FC<DeviationCardProps> = ({ deviation, onClick }) => {
-  const isPositive = deviation.deviation_pct > 0;
   const formattedAmount = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   }).format(deviation.amount);
 
   return (
-    <Card
-      hoverable
+    <button
       onClick={onClick}
-      className="flex items-center justify-between border-l-4 border-l-brand-red p-4"
+      className="w-full rounded-lg bg-white p-4 shadow-sm hover:shadow-md transition-shadow"
     >
-      <div className="flex-1">
-        <div className="flex items-center gap-2">
-          <span className="text-section-title font-semibold">
-            {formattedAmount}
-          </span>
-          <span
-            className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${
-              isPositive
-                ? 'bg-red-100 text-red-700'
-                : 'bg-green-100 text-green-700'
-            }`}
-          >
-            {isPositive ? (
-              <ArrowUpIcon className="mr-1 h-3 w-3" />
-            ) : (
-              <ArrowDownIcon className="mr-1 h-3 w-3" />
-            )}
-            {Math.abs(deviation.deviation_pct)}%
-          </span>
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="text-2xl font-semibold text-gray-900">{formattedAmount}</div>
+            <div className="mt-1 text-sm font-medium text-gray-900">{deviation.fee_category}</div>
+            <div className="text-xs text-gray-500">{deviation.fee_type}</div>
+          </div>
+          <div className="flex items-center gap-1">
+            <span className={`text-sm font-medium ${deviation.deviation_pct > 0 ? 'text-red-600' : 'text-green-600'}`}>
+              {deviation.deviation_pct > 0 ? '+' : '-'}{Math.abs(deviation.deviation_pct)}%
+            </span>
+            <ArrowRightIcon className="h-5 w-5 text-gray-400" />
+          </div>
         </div>
-        <h3 className="mt-1 font-medium text-text-primary">
-          {deviation.fee_category}
-        </h3>
-        <p className="text-sm text-text-muted">{deviation.fee_type}</p>
       </div>
-      <div className="ml-4">
-        <ArrowUpIcon
-          className="h-6 w-6 text-text-muted"
-          aria-hidden="true"
-        />
-      </div>
-    </Card>
+    </button>
   );
 };
 

@@ -1,9 +1,10 @@
 export interface DeviationType {
-  fee_category: string;
-  fee_type: string;
+  category_id: string;
+  title: string;
+  description: string;
   amount: number;
-  deviation_pct: number;
-  category_id: number;
+  trend_pct: number;
+  severity: 'high' | 'medium' | 'low';
 }
 
 export interface KPIType {
@@ -12,8 +13,8 @@ export interface KPIType {
 }
 
 export interface TrendDataPoint {
-  period: string;
-  cost_pct: number;
+  date: string;
+  value: number;
 }
 
 export interface SettlementType {
@@ -26,6 +27,7 @@ export interface SettlementType {
 export interface SettlementComponentItem {
   label: string;
   amount: number;
+  trend_pct?: number;
 }
 
 export interface SettlementComponentsType {
@@ -50,8 +52,6 @@ export interface DashboardFilters {
     start: Date;
     end: Date;
   };
-  processorId?: string[];
-  businessUnitId?: string[];
   breakdownDimension: string;
 }
 

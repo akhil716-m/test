@@ -1,29 +1,20 @@
+'use client';
+
 import { FC, ReactNode } from 'react';
 import clsx from 'clsx';
 
 interface CardProps {
   children: ReactNode;
   className?: string;
-  onClick?: () => void;
-  hoverable?: boolean;
 }
 
-const Card: FC<CardProps> = ({
-  children,
-  className,
-  onClick,
-  hoverable = false,
-}) => {
+const Card: FC<CardProps> = ({ children, className }) => {
   return (
     <div
       className={clsx(
-        'rounded-card bg-white p-4 shadow-sm',
-        {
-          'cursor-pointer transition-shadow hover:shadow-md': hoverable || onClick,
-        },
+        'rounded-lg bg-white p-4 shadow-sm',
         className
       )}
-      onClick={onClick}
     >
       {children}
     </div>
